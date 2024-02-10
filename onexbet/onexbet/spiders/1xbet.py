@@ -14,8 +14,9 @@ class Bet365(scrapy.Spider):
 
     def parse(self, response):
         title = response.css('#page_title span::text')[0].extract()
-        sport_types = response.xpath("//div[contains(@class, 'sports-slider__wrapper')]//div[contains(@class, 'b-filters__slide')]//a[contains(@class, 'b-filters__sport')]//div[contains(@class, 'b-filters__sport-name')]/text()").extract()
-        yield { 'group': title, 'sport_types': sport_types }
+        sport_types = response.css('.sports-slider__wrapper a').extract()
+        print('LOGG :: ', sport_types)
+        yield {'group': title, 'sport_types': sport_types}
         # elements = response.xpath("//div[contains(@class, 'sports-slider__wrapper')]//div[contains(@class, 'b-filters__slide')]//a[contains(@class, 'b-filters__sport')").extract()
         # print('parents :: ', elements)
         # # for element in elements:
